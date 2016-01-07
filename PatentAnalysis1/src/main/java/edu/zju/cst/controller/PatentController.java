@@ -21,11 +21,11 @@ public class PatentController {
 	@Autowired
 	private PatentService  patentService;
 	/**
-	 * ²éÑ¯ÒÔÔÂ·İÎª¾«¶ÈµÄ¹«Ë¾ÉêÇë×¨ÀûÊıÁ¿
+	 * æŸ¥è¯¢ä»¥æœˆä»½ä¸ºç²¾åº¦çš„å…¬å¸ç”³è¯·ä¸“åˆ©æ•°é‡
 	 * @param request
 	 * @param year
 	 * @param company
-	 * @return  ·µ»ØapplyData,applyDataÎªHashMap,keyÎªÔÂ·İ£¬valueÎªÉêÇë×¨ÀûÊıÁ¿
+	 * @return  è¿”å›applyData,applyDataä¸ºHashMap,keyä¸ºæœˆä»½ï¼Œvalueä¸ºç”³è¯·ä¸“åˆ©æ•°é‡
 	 */
 	@RequestMapping(value="/queryApplyData",method=RequestMethod.POST)
 	public @ResponseBody String queryApplyData(HttpServletRequest request,@RequestParam("year")String year,@RequestParam("company")String company){

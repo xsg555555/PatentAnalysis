@@ -1,5 +1,6 @@
 package edu.zju.cst.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,8 +28,33 @@ public class PatentController {
 	 * @param company
 	 * @return  返回applyData,applyData为HashMap,key为月份，value为申请专利数量
 	 */
+//	@RequestMapping(value="/queryApplyData",method=RequestMethod.POST)
+//	public @ResponseBody String queryApplyData(HttpServletRequest request,@RequestParam("year")String year,@RequestParam("company")String company){
+//		String company = request.getParameter("company");
+//		byte[] bytes = company.getBytes("ISO-8859-1");
+//
+//		System.out.println(year+":"+company);
+//		Map<String, String> applyData=new HashMap<String, String>();		
+//		applyData=patentService.queryApplyData(year,company);
+//		for(int i=1;i<13;i++){
+//			System.out.println(i+":"+applyData.get(String.valueOf(i)));
+//		}
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("applyData", JSONObject.wrap(applyData).toString());
+//		return JSONObject.wrap(map).toString();
+//		
+//	}
 	@RequestMapping(value="/queryApplyData",method=RequestMethod.POST)
-	public @ResponseBody String queryApplyData(HttpServletRequest request,@RequestParam("year")String year,@RequestParam("company")String company){
+	public @ResponseBody String queryApplyData(HttpServletRequest request){
+		String year = request.getParameter("year");
+		String company = request.getParameter("company");
+		try {
+			byte[] bytes = company.getBytes("ISO-8859-1");
+			company = new String(bytes,"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 		System.out.println(year+":"+company);
 		Map<String, String> applyData=new HashMap<String, String>();		
 		applyData=patentService.queryApplyData(year,company);

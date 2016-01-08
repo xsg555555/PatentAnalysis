@@ -25,7 +25,7 @@ public class PatentService {
 		Map<String, String> map=new HashMap<String, String>();
 		ArrayList<Patent> patents = new ArrayList<Patent>();
 		for(int i=1;i<=12;i++){
-			int num = patentMapper.getPatentByCompany(company,year,String.valueOf(i));
+			int num = patentMapper.getPatentByCompany("科大讯飞股份有限公司",year,String.valueOf(i));
 			map.put(String.valueOf(i), String.valueOf(num));
 		}
 		return map;

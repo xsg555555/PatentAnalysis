@@ -29,8 +29,12 @@ public class PatentController {
 	 */
 	@RequestMapping(value="/queryApplyData",method=RequestMethod.POST)
 	public @ResponseBody String queryApplyData(HttpServletRequest request,@RequestParam("year")String year,@RequestParam("company")String company){
+		System.out.println(year+":"+company);
 		Map<String, String> applyData=new HashMap<String, String>();		
 		applyData=patentService.queryApplyData(year,company);
+		for(int i=1;i<13;i++){
+			System.out.println(i+":"+applyData.get(String.valueOf(i)));
+		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("applyData", JSONObject.wrap(applyData).toString());
 		return JSONObject.wrap(map).toString();

@@ -1,12 +1,18 @@
 package edu.zju.cst.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,17 +33,16 @@ public class CompanyController {
 		this.companyService = companyService;
 	}
 	@RequestMapping( value = "/companyList", method = RequestMethod.POST)
-	public ModelAndView companyList(){
+	public @ResponseBody String getCompanyList(HttpServletRequest request,HttpServletResponse response){
 		System.out.println("OK");
-		ModelAndView mv=new ModelAndView();
-		List<CompanyDim> companyDims=this.getCompanyService().getCompanyList();
-		for(CompanyDim companyDim:companyDims){
-			System.out.println(companyDim.getCompany_name());
+		List<String> companyList=companyService.getCompanyList();
+		for (String company : companyList) {
+			System.out.println(company);
 		}
-		mv.addObject("companyList",companyDims);
-//		mv.setViewName("companyList");
-		mv.setViewName("redirect:/test2.jsp");
-		return mv;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("companyList", JSONObject.wrap(companyList).toString());
+		response.setContentType("text/json;charset=utf-8");
+		return JSONObject.wrap(map).toString();
 	}
 	
 }

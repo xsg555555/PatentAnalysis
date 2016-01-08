@@ -13,6 +13,9 @@
 		<input type="text" name="company">
 		<input type="submit" value="test">
 	</form>
+	<form action="company/companyList" method="post">
+		<input type="submit" value="testcompany">
+	</form>
 	
 </body>
 </html>

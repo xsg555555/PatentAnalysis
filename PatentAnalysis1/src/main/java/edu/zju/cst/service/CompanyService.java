@@ -17,7 +17,7 @@ public class CompanyService {
 	public CompanyDim getCompanyById(int id){
 		return (CompanyDim)this.companyDimMapper.getCompanyById(id);
 	}
-	public List<CompanyDim> getCompanyList() {       
-        return (List<CompanyDim>)this.companyDimMapper.getCompanyList();  
+	public List<String> getCompanyList() {       
+        return this.companyDimMapper.getCompanyList();  
     } 
 }

@@ -8,6 +8,6 @@
 		<mapper resource="edu/zju/cst/mapper/CompanyDimMapper.xml"/>
 		<mapper resource="edu/zju/cst/mapper/DateDimMapper.xml"/>
 		<mapper resource="edu/zju/cst/mapper/GroupDimMapper.xml"/>
-		<mapper resource="edu/zju/cst/mapper/PeapleDimMapper.xml"/>
+		<mapper resource="edu/zju/cst/mapper/PeopleDimMapper.xml"/>
 	</mappers>
 </configuration>

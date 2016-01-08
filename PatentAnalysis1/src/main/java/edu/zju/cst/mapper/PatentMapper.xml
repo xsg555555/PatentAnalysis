@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="edu.zju.cst.mapper.patentMapper" >
-	<resultMap type="edu.zju.cst.beans.Patent" id="patentMap">  
-     <id property="id" column="id"/>  
+<mapper namespace="edu.zju.cst.mapper.PatentMapper" >
+	<resultMap type="edu.zju.cst.beans.Patent" id="PatentMap">  
+    <id property="id" column="id"/>
    </resultMap>
 	<select id="getPatent" parameterType="String" resultType="edu.zju.cst.beans.Patent">
 	select * from patent where id=#{id}
 	</select>
 	
-	<select id="getPatentByCompany" parameterType="String" resultType="edu.zju.cst.beans.Patent">
-	select count(*) from patent where apply_man=#{company} and aplly_date_sk in (
-	select date_sk from date_dim where month_number=#{month} and year_number =#{year}
-	)
+	<select id="getPatentByCompany" parameterType="String" resultType="int">
+	select count(*) from patent where apply_man like #{company} and aplly_date_sk in (
+	select date_sk from date_dim where month_number=#{month} and year_number =#{year})
 	</select>
 </mapper>

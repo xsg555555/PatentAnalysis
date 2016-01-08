@@ -1,6 +1,8 @@
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.zju.cst.beans.Patent;
 import edu.zju.cst.mapper.PatentMapper;
@@ -13,35 +15,17 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class MapperTest {
-	SqlSession sqlSession;
-	PatentMapper fileMapper;
 	
+	ApplicationContext  ac;
 	@Before
 	public void setup(){
-	sqlSession = getSessionFactory().openSession();  
-	fileMapper = sqlSession.getMapper(PatentMapper.class);  
+		ac = new ClassPathXmlApplicationContext("classpath:configs/spring-dao.xml");
 }
 	
 	@Test
 	public void selectFileTest(){
-		int num = fileMapper.getPatentByCompany("科大讯飞股份有限公司", "2014", "10");
-		System.out.println(num);
-		sqlSession.commit(); 
+		PatentMapper userMapper = (PatentMapper)ac.getBean("PatentMapper");
+		System.out.println(userMapper.getPatentByCompany("科大讯飞股份有限公司", "2014", "10"));
 	}
-	/** 
-	  * 获得MyBatis SqlSessionFactory 
-	  * SqlSessionFactory负责创建SqlSession，一旦创建成功，就可以用SqlSession实例来执行映射语句，commit，rollback，close等方法。 
-	  * @return 
-	  */  
-	 private SqlSessionFactory getSessionFactory() {  
-		 SqlSessionFactory sessionFactory = null;  
-		 String resource = "spring-dao.xml";  
-		 try {  
-			 sessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader(resource));  
-		 } catch (IOException e) {  
-		   // TODO Auto-generated catch block  
-		   e.printStackTrace();  
-		  }  
-		  return sessionFactory;  
-	}
+
 }

@@ -41,6 +41,29 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	
+	<bean id="PatentMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<!-- 多个包用逗号隔开 -->
+		<property name="mapperInterface" value="edu.zju.cst.mapper.PatentMapper"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="DateDimMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<!-- 多个包用逗号隔开 -->
+		<property name="mapperInterface" value="edu.zju.cst.mapper.DateDimMapper"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="GroupDimMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<!-- 多个包用逗号隔开 -->
+		<property name="mapperInterface" value="edu.zju.cst.mapper.GroupDimMapper"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="PeopleDimMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<!-- 多个包用逗号隔开 -->
+		<property name="mapperInterface" value="edu.zju.cst.mapper.PeopleDimMapper"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
 	
 
 </beans>

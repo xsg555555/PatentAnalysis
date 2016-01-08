@@ -8,8 +8,21 @@
 	select * from patent where id=#{id}
 	</select>
 	
-	<select id="getPatentByCompany" parameterType="String" resultType="int">
+	<select id="getApplyNumByCompany" parameterType="String" resultType="int">
 	select count(*) from patent where apply_man like #{company} and aplly_date_sk in (
 	select date_sk from date_dim where month_number=#{month} and year_number =#{year})
 	</select>
+	
+	<select id="getPublicNumByCompany" parameterType="String" resultType="int">
+	select count(*) from patent where apply_man like #{company} and publicity_date_sk in (
+	select date_sk from date_dim where month_number=#{month} and year_number =#{year})
+	</select>
+	
+	<select id="queryPublicPatentCatagoryNum" parameterType="String" resultType="String">
+	select count(*) from patent where apply_man like #{company} and publicity_date_sk in (
+	select date_sk from date_dim where year_number =#{year})
+	group by type
+	order by type
+	</select>
+	
 </mapper>

@@ -64,7 +64,7 @@ public class PatentService {
 	 * @param company
 	 * @return 一个HashMap，key为专利类型名称，value为该专利类型的个数
 	 */
-	public Map<String, String> queryPublicPatentCatagory(String year,String company){
+	public Map<String, String> queryPublicPatentCatagoryNum(String year,String company){
 		Map<String, String> map=new HashMap<String, String>();
 		ArrayList<String> num = new ArrayList<String>();
 		String[] Category={"发明专利","外观设计","实用新型"};

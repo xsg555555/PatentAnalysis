@@ -101,7 +101,7 @@ public class PatentController {
 		}		
 		System.out.println(year+":"+company);
 		Map<String, String> catagoryData=new HashMap<String, String>();		
-		catagoryData=patentService.queryPatentCatagory(year,company);
+		catagoryData=patentService.queryPublicPatentCatagoryNum(year,company);
 //		Map<String, Object> map = new HashMap<String, Object>();
 //		for(int i=0;i<catagoryData.size();i++){
 //			map.put("i", JSONObject.wrap(catagoryData.get(String.valueOf(i))).toString());

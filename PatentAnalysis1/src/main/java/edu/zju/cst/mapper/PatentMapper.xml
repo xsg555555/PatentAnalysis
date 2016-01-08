@@ -7,4 +7,10 @@
 	<select id="getPatent" parameterType="String" resultType="edu.zju.cst.beans.Patent">
 	select * from patent where id=#{id}
 	</select>
+	
+	<select id="getPatentByCompany" parameterType="String" resultType="edu.zju.cst.beans.Patent">
+	select count(*) from patent where apply_man=#{company} and aplly_date_sk in (
+	select date_sk from date_dim where month_number=#{month} and year_number =#{year}
+	)
+	</select>
 </mapper>

@@ -1,6 +1,6 @@
 package edu.zju.cst.beans;
 
-public class PeapleDim {
+public class PeopleDim {
 	private int id;
 	private String name;
 	private String company;

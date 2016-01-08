@@ -1,11 +1,14 @@
 package edu.zju.cst.service;
 
+import java.awt.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.zju.cst.beans.Patent;
 import edu.zju.cst.mapper.PatentMapper;
 
 @Service("patentService")
@@ -20,6 +23,11 @@ public class PatentService {
 	 */
 	public Map<String, String> queryApplyData(String year,String company){
 		Map<String, String> map=new HashMap<String, String>();
+		ArrayList<Patent> patents = new ArrayList<Patent>();
+		for(int i=1;i<=12;i++){
+			int num = patentMapper.getPatentByCompany(company,year,String.valueOf(i));
+			map.put(String.valueOf(i), String.valueOf(num));
+		}
 		return map;
 	}
 }

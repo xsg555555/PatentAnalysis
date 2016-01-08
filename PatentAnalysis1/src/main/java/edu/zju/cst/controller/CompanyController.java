@@ -32,7 +32,7 @@ public class CompanyController {
 	public void setCompanyService(CompanyService companyService) {
 		this.companyService = companyService;
 	}
-	@RequestMapping( value = "/companyList", method = RequestMethod.POST)
+	@RequestMapping( value = "/getCompanyList", method = RequestMethod.POST)
 	public @ResponseBody String getCompanyList(HttpServletRequest request,HttpServletResponse response){
 		System.out.println("OK");
 		List<String> companyList=companyService.getCompanyList();

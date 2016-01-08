@@ -43,12 +43,12 @@ public class PatentController {
 		}		
 		Map<String, String> applyData=new HashMap<String, String>();		
 		applyData=patentService.queryApplyData(startYear,endYear,company);
-//		for(int i=1;i<13;i++){
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		for(int i=1;i<=applyData.size();i++){
 //			System.out.println(i+":"+applyData.get(String.valueOf(i)));
-//		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("applyData", JSONObject.wrap(applyData).toString());
-		return JSONObject.wrap(map).toString();
+//			map.put("i", JSONObject.wrap(applyData.get(String.valueOf(i))).toString());
+//		}				
+		return JSONObject.wrap(applyData).toString();
 		
 	}
 	/**
@@ -71,14 +71,14 @@ public class PatentController {
 			e.printStackTrace();
 		}		
 //		System.out.println(year+":"+company);
-		Map<String, String> applyData=new HashMap<String, String>();		
-		applyData=patentService.queryPublicityData(startYear,endYear,company);
-//		for(int i=1;i<13;i++){
-//			System.out.println(i+":"+applyData.get(String.valueOf(i)));
-//		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("publicityData", JSONObject.wrap(applyData).toString());
-		return JSONObject.wrap(map).toString();
+		Map<String, String> publicityData=new HashMap<String, String>();		
+		publicityData=patentService.queryPublicityData(startYear,endYear,company);
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		for(int i=1;i<=publicityData.size();i++){
+//			System.out.println(i+":"+publicityData.get(String.valueOf(i)));
+//			map.put("i", JSONObject.wrap(publicityData.get(String.valueOf(i))).toString());
+//	    }		
+		return JSONObject.wrap(publicityData).toString();
 		
 	}
 	/**
@@ -100,14 +100,13 @@ public class PatentController {
 			e.printStackTrace();
 		}		
 		System.out.println(year+":"+company);
-		Map<String, String> applyData=new HashMap<String, String>();		
-		applyData=patentService.queryPatentCatagory(year,company);
-		for(int i=1;i<13;i++){
-			System.out.println(i+":"+applyData.get(String.valueOf(i)));
-		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("patentCatagory", JSONObject.wrap(applyData).toString());
-		return JSONObject.wrap(map).toString();
+		Map<String, String> catagoryData=new HashMap<String, String>();		
+		catagoryData=patentService.queryPatentCatagory(year,company);
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		for(int i=0;i<catagoryData.size();i++){
+//			map.put("i", JSONObject.wrap(catagoryData.get(String.valueOf(i))).toString());
+//	    }	
+		return JSONObject.wrap(catagoryData).toString();
 		
 	}
 }

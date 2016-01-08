@@ -40,7 +40,7 @@ public class CompanyController {
 			System.out.println(company);
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("companyList", JSONObject.wrap(companyList).toString());
+		map.put("companyList",companyList);
 		response.setContentType("text/json;charset=utf-8");
 		return JSONObject.wrap(map).toString();
 	}

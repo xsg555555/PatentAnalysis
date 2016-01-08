@@ -1,6 +1,7 @@
 package edu.zju.cst.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,22 +35,30 @@ public class PatentController {
 		String startYear = request.getParameter("startYear");
 		String endYear = request.getParameter("endYear");
 		String company = request.getParameter("company");
-		try {
-			byte[] bytes = company.getBytes("ISO-8859-1");
-			company = new String(bytes,"utf-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+		System.out.println(startYear+":::"+endYear+":::"+company);
+//		try {
+//			byte[] bytes = company.getBytes("ISO-8859-1");
+//			company = new String(bytes,"utf-8");
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}	
+		System.out.println(startYear+":::"+endYear+":::"+company);
 		Map<String, String> applyData=new HashMap<String, String>();		
 		applyData=patentService.queryApplyData(startYear,endYear,company);
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		for(int i=1;i<=applyData.size();i++){
-//			System.out.println(i+":"+applyData.get(String.valueOf(i)));
-//			map.put("i", JSONObject.wrap(applyData.get(String.valueOf(i))).toString());
-//		}				
-		return JSONObject.wrap(applyData).toString();
+		Map<String, Object> map=new HashMap<String, Object>();
+		List<String> applyDataList=new ArrayList<String>();
 		
+		for(int i=1;i<=applyData.size();i++){
+			applyDataList.add(applyData.get(String.valueOf(i)));
+		}
+		System.out.println("//////////////////////////");
+		for(int i=0;i<applyDataList.size();i++){
+			System.out.println(applyDataList.get(i));
+		}
+		map.put("applyData", applyDataList);
+//		return JSONObject.wrap(applyData).toString();
+		return JSONObject.wrap(map).toString();
 	}
 	/**
 	 * 查询以月份为精度的公司公开专利数量

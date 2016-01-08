@@ -23,6 +23,7 @@ public class PatentService {
 	 * @return  返回该公司该年份区间内12个月的公司申请专利数量
 	 */
 	public Map<String, String> queryApplyData(String startYear,String endYear,String company){
+		System.out.println(startYear+":::"+endYear+":::"+company);
 		Map<String, String> map=new HashMap<String, String>();
 		int endy = Integer.parseInt(endYear);
 		int starty = Integer.parseInt(startYear);
@@ -32,6 +33,7 @@ public class PatentService {
 				int key = j*12+i;
 				int num = patentMapper.getApplyNumByCompany(company,String.valueOf(starty+j),String.valueOf(i));
 				map.put(String.valueOf(key), String.valueOf(num));
+				System.out.println("Service::"+num);
 			}
 		}
 		return map;

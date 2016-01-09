@@ -82,12 +82,13 @@ public class PatentController {
 //		System.out.println(year+":"+company);
 		Map<String, String> publicityData=new HashMap<String, String>();		
 		publicityData=patentService.queryPublicityData(startYear,endYear,company);
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		for(int i=1;i<=publicityData.size();i++){
-//			System.out.println(i+":"+publicityData.get(String.valueOf(i)));
-//			map.put("i", JSONObject.wrap(publicityData.get(String.valueOf(i))).toString());
-//	    }		
-		return JSONObject.wrap(publicityData).toString();
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<String> publicityDataList=new ArrayList<String>();
+		for(int i=1;i<=publicityData.size();i++){
+			publicityDataList.add(publicityData.get(String.valueOf(i)));			
+	    }		
+		map.put("publicityData", publicityDataList);
+		return JSONObject.wrap(map).toString();
 		
 	}
 	/**

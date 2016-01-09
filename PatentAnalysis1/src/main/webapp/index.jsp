@@ -1,14 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<style type="text/css" href="css/bootstrap.min.css"></style>
-<script src="js/d3.min.js" charset="utf-8"></script>
-<script src="js/jquery-2.1.4.min.js" charset="utf-8"></script>
-<script src="js/bootstrap.min.js" charset="utf-8"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>专利申请趋势</title>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+<script src="js/jquery-1.11.1.js"></script>
+<script src="js/d3.min.js"></script>
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
 </head>
 <style type="text/css">
 body {
@@ -46,18 +46,54 @@ body {
 }
 </style>
 <body>
-	<button class="btn btn-warning" type="button" onClick="javascript:drawChart()" >查询数据</button>
-	<select class="selectpicker" id="company" style="width:200px">
-		<option>公司</option>
-	</select>
-	<select class="selectpicker" id="year1">
-		<option>起始年份</option>
-	</select>
-	<select class="selectpicker" id="year2">
-		<option>终止年份</option>
-	</select>
-	<br>
-	<div id="display"></div>
+	<div class="well container" style="background: #616161">
+		<hr>
+		<div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4" align="left">
+						<div class="well">
+							<font size="4px" style="font-weight: bold; font-family: KaiTi" class="col-md-12">请在下方选择要查看的公司</font> <br>
+								<select class="form-control" id="company" style="margin-left:5px;margin-top:10px">
+									<option>公司</option>
+								</select>	
+							<hr>
+							<font size="3px" style="font-weight: bold; font-family: KaiTi"
+								class="col-md-12">请在下方选择起始年份</font> <br>
+							<select class="form-control" id="year1" style="margin-left:5px;margin-top:10px;width:170px" >
+								<option>起始年份</option>
+							</select>
+							<hr>
+							<font size="3px" style="font-weight: bold; font-family: KaiTi"
+								class="col-md-12">请在下方选择终止年份</font> <br>
+							<select class="form-control" id="year2" style="margin-left:5px;margin-top:10px;width:170px">
+								<option>终止年份</option>
+							</select>
+							<div align="right"><button class="btn btn-warning" type="button" onClick="javascript:drawChart()"
+								style="width: 100px;" >查询数据</button></div>
+						</div>
+					</div>
+					<div class="col-md-7">
+						<form method="post" action="FileController/getAlgorithmParameter">
+							<div class="panel">
+								<div class="panel-heading" align="center"
+									style="color: black; height: 50px; background-color: #E6E8FA">
+								</div>
+								<div class="panel-body" align="center">
+									<div id="display" align="center"></div>
+								</div>
+								<div class="panel-footer">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
 	<script type="text/javascript">
 		var dataset = [];
 		var xMarks = [];
@@ -184,6 +220,7 @@ body {
 				type : "post",
 				url : "company/getCompanyList",
 				dataType : "json",
+				async:false,
 				success : function(data) {
 					var obj = eval(data);
 					$.each(obj.companyList, function(index,content) {

@@ -1,6 +1,5 @@
 package edu.zju.cst.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.zju.cst.service.PatentService;
@@ -72,13 +70,13 @@ public class PatentController {
 		String startYear = request.getParameter("startYear");
 		String endYear = request.getParameter("endYear");
 		String company = request.getParameter("company");
-		try {
-			byte[] bytes = company.getBytes("ISO-8859-1");
-			company = new String(bytes,"utf-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+//		try {
+//			byte[] bytes = company.getBytes("ISO-8859-1");
+//			company = new String(bytes,"utf-8");
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}		
 //		System.out.println(year+":"+company);
 		Map<String, String> publicityData=new HashMap<String, String>();		
 		publicityData=patentService.queryPublicityData(startYear,endYear,company);
@@ -102,13 +100,13 @@ public class PatentController {
 	public @ResponseBody String queryPatentCatagory(HttpServletRequest request){
 		String year = request.getParameter("year");
 		String company = request.getParameter("company");
-		try {
-			byte[] bytes = company.getBytes("ISO-8859-1");
-			company = new String(bytes,"utf-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+//		try {
+//			byte[] bytes = company.getBytes("ISO-8859-1");
+//			company = new String(bytes,"utf-8");
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}		
 		System.out.println(year+":"+company);
 		Map<String, String> catagoryData=new HashMap<String, String>();		
 		catagoryData=patentService.queryPublicPatentCatagoryNum(year,company);

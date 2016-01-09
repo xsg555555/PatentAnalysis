@@ -92,7 +92,7 @@ public class PatentService {
 		ArrayList<SQLPatentTypeNumber> numList = new ArrayList<SQLPatentTypeNumber>();
 		String[] chineseCategory={"发明专利","外观专利","实用新型"};
 		String[] englishCategory={"inventPatent","outlookPatent","practicPatent"};
-		numList = patentMapper.queryPublicPatentCatagoryNum("科大讯飞股份有限公司", "2014");
+		numList = patentMapper.queryPublicPatentCatagoryNum(company,year);
 		for (SQLPatentTypeNumber string : numList) {
 			System.out.println(string.getType()+":"+string.getCount());
 		}
@@ -109,7 +109,7 @@ public class PatentService {
 			}
 			index++;
 		}
-		if (index<=3) {
+		if (index<3) {
 			map.put(englishCategory[index],"0");
 			//System.out.println(englishCategory[index]+":"+map.get(englishCategory[index]));
 			index++;

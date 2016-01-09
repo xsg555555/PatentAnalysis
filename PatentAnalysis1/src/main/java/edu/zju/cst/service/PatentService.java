@@ -1,15 +1,12 @@
 package edu.zju.cst.service;
 
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.maven.artifact.resolver.filter.AndArtifactFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.zju.cst.beans.Patent;
 import edu.zju.cst.beans.SQLCompanyYearPatentNumber;
 import edu.zju.cst.beans.SQLPatentTypeNumber;
 import edu.zju.cst.mapper.PatentMapper;
@@ -18,6 +15,7 @@ import edu.zju.cst.mapper.PatentMapper;
 public class PatentService {
 	@Autowired
 	private PatentMapper patentMapper;
+	
 	/**
 	 * 以月份为精度的公司申请专利数量
 	 * @param startYear 查询的起始年份
@@ -50,6 +48,7 @@ public class PatentService {
 		return map;
 	}
 	
+	
 	/**
 	 * 以月份为精度的公司公开专利数量
 	 * @param startYear 查询的起始年份
@@ -81,6 +80,7 @@ public class PatentService {
 		}
 		return map;
 	}
+	
 	/**
 	 * 以年为精度，查询该公司该年份公开的各个专利类型的专利个数。分为发明专利、外观设计、实用新型
 	 * @param year

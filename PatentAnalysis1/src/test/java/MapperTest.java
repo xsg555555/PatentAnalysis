@@ -9,7 +9,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.zju.cst.beans.SQLCompanyYearPatentNumber;
+import edu.zju.cst.beans.SQLPatentNumByGroupAndType;
 import edu.zju.cst.beans.SQLPatentTypeNumber;
+import edu.zju.cst.mapper.GroupDimMapper;
 import edu.zju.cst.mapper.PatentMapper;
 
 public class MapperTest {

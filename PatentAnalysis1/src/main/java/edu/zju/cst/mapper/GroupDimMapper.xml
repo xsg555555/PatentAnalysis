@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.zju.cst.mapper.GroupDimMapper" >
+
+<select id="queryTechnologyByBigGroup" parameterType="String" resultType="edu.zju.cst.beans.SQLPatentNumByGroupAndType">
+select big_group as Bgroup,patent_type as type ,count(*) as count 
+from patent,group_dim
+where apply_man like #{company} and patent_type in ("实用新型","发明专利") and patent_id = id and 
+date_sk in(select date_sk from date_dim where year_number=#{year})
+group by big_group,patent_type
+</select>
+
+<select id="queryTechnologyBySmallGroup" parameterType="String" resultType="edu.zju.cst.beans.SQLPatentNumByGroupAndType">
+select small_group as Bgroup,patent_type as type ,count(*) as count 
+from patent,group_dim
+where apply_man like #{company} and patent_type in ("实用新型","发明专利") and patent_id = id and 
+date_sk in(select date_sk from date_dim where year_number=#{year})
+group by small_group,patent_type
+</select>
+
 </mapper>

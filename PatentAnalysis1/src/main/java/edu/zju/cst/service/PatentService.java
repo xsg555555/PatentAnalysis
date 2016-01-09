@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import edu.zju.cst.beans.Patent;
 import edu.zju.cst.beans.SQLCompanyYearPatentNumber;
+import edu.zju.cst.beans.SQLPatentTypeNumber;
 import edu.zju.cst.mapper.PatentMapper;
 
 @Service("patentService")
@@ -88,12 +89,30 @@ public class PatentService {
 	 */
 	public Map<String, String> queryPublicPatentCatagoryNum(String year,String company){
 		Map<String, String> map=new HashMap<String, String>();
-		ArrayList<String> num = new ArrayList<String>();
-		String[] Category={"inventPatent","outlookPatent","practicPatent"};
-		num = patentMapper.queryPublicPatentCatagoryNum(company, year);
+		ArrayList<SQLPatentTypeNumber> numList = new ArrayList<SQLPatentTypeNumber>();
+		String[] chineseCategory={"发明专利","外观专利","实用新型"};
+		String[] englishCategory={"inventPatent","outlookPatent","practicPatent"};
+		numList = patentMapper.queryPublicPatentCatagoryNum("科大讯飞股份有限公司", "2014");
+		for (SQLPatentTypeNumber string : numList) {
+			System.out.println(string.getType()+":"+string.getCount());
+		}
 		int index = 0;
-		for (String n : num) {
-			map.put(Category[index++], n);
+		for (int n=0;n<numList.size();) {
+			SQLPatentTypeNumber result = numList.get(n);
+			if (result.getType().equals(chineseCategory[index])) {
+				map.put(englishCategory[index],result.getCount());
+				//System.out.println(englishCategory[index]+":"+map.get(englishCategory[index]));
+				n++;
+			}else{
+				map.put(englishCategory[index],"0");
+				//System.out.println(englishCategory[index]+":"+map.get(englishCategory[index]));
+			}
+			index++;
+		}
+		if (index<=3) {
+			map.put(englishCategory[index],"0");
+			//System.out.println(englishCategory[index]+":"+map.get(englishCategory[index]));
+			index++;
 		}
 		return map;
 	}

@@ -116,6 +116,7 @@ public class PatentController {
 //		for(int i=0;i<catagoryData.size();i++){
 //			map.put("i", JSONObject.wrap(catagoryData.get(String.valueOf(i))).toString());
 //	    }	
+		System.out.println(catagoryData.toString());
 		return JSONObject.wrap(catagoryData).toString();
 		
 	}

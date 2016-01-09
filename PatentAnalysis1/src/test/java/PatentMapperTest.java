@@ -14,13 +14,13 @@ import edu.zju.cst.beans.SQLPatentTypeNumber;
 import edu.zju.cst.mapper.GroupDimMapper;
 import edu.zju.cst.mapper.PatentMapper;
 
-public class MapperTest {
+public class PatentMapperTest {
 	
 	ApplicationContext  ac;
 	@Before
 	public void setup(){
 		ac = new ClassPathXmlApplicationContext("classpath:configs/spring-dao.xml");
-}
+	}
 	
 	@Test
 	public void getPatentByCompanyTest(){

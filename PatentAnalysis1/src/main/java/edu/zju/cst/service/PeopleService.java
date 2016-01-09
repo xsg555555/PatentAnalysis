@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.zju.cst.beans.SQLCompanyYearPatentNumber;
 import edu.zju.cst.mapper.PeopleDimMapper;
 
 @Service("peopleService")
@@ -21,6 +22,24 @@ public class PeopleService {
 	 */
 	public List<String> queryPeopleQuantity(String startYear,String endYear,String company) {
 		List<String> peopleQuantityData=new ArrayList<String>();
+		ArrayList<SQLCompanyYearPatentNumber> result = new ArrayList<SQLCompanyYearPatentNumber>();
+		result = peopleDimMapper.getPeopleNumByCompany(company , startYear, endYear);
+		int endy = Integer.parseInt(endYear);
+		int starty = Integer.parseInt(startYear);
+		int range = endy-starty;
+		int index = 0;
+		for(int j = 0;j<=range;j++){
+			for(int i=1;i<=12;i++){
+				int key = j*12+i;
+				if (index < result.size() && result.get(index).getYear_number().equals(String.valueOf(starty+j)) 
+						&&result.get(index).getMonth_number().equals(String.valueOf(i))) {
+					peopleQuantityData.add(key-1,result.get(index).getCount());
+					index++;
+				}else{
+					peopleQuantityData.add(key-1,"0");
+				}
+			}
+		}
 		return peopleQuantityData;
 	}
 }

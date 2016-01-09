@@ -69,7 +69,7 @@ public class PatentService {
 	public Map<String, String> queryPublicPatentCatagoryNum(String year,String company){
 		Map<String, String> map=new HashMap<String, String>();
 		ArrayList<String> num = new ArrayList<String>();
-		String[] Category={"发明专利","外观设计","实用新型"};
+		String[] Category={"inventPatent","outlookPatent","practicPatent"};
 		num = patentMapper.queryPublicPatentCatagoryNum(company, year);
 		int index = 0;
 		for (String n : num) {

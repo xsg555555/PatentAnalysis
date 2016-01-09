@@ -1,22 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.zju.cst.mapper.PatentMapper" >
-	<resultMap type="edu.zju.cst.beans.Patent" id="PatentMap">  
+  <resultMap type="edu.zju.cst.beans.Patent" id="PatentMap">  
     <id property="id" column="id"/>
-   </resultMap>
+  </resultMap>
+   
+  <resultMap type="edu.zju.cst.beans.Patent" id="PatentYearNumberMap"> 
+  	<id property="patent_id" column="id"/> 
+    <result property="year_number" column="year_number"/>
+  	<result property="month_number" column="month_number"/>
+  	<result property="total_number" column="total_number"/>
+  </resultMap>
+   
 	<select id="getPatent" parameterType="String" resultType="edu.zju.cst.beans.Patent">
 	select * from patent where id=#{id}
 	</select>
 	
-	<select id="getApplyNumByCompany" parameterType="String" resultType="int">
-	select count(*) from patent where apply_man like #{company} and aplly_date_sk in (
-	select date_sk from date_dim where month_number=#{month} and year_number =#{year})
+	<select id="getApplyNumByCompany" parameterType="String" resultType="edu.zju.cst.beans.SQLCompanyYearPatentNumber">
+	select year_number as year_number ,month_number as month_number,count(*) as count 
+	from patent,date_dim
+	where apply_man like #{company} and aplly_date_sk=date_sk
+	and year_number &gt;= #{start_year} and year_number &lt;= #{end_year}
+	group by year_number,month_number
 	</select>
 	
-	<select id="getPublicNumByCompany" parameterType="String" resultType="int">
-	select count(*) from patent where apply_man like #{company} and publicity_date_sk in (
-	select date_sk from date_dim where month_number=#{month} and year_number =#{year})
+	<select id="getPublicNumByCompany" parameterType="String" resultType="edu.zju.cst.beans.SQLCompanyYearPatentNumber">
+	select year_number as year_number ,month_number as month_number,count(*) as count 
+	from patent,date_dim
+	where apply_man like #{company} and publicity_date_sk=date_sk
+	and year_number &gt;= #{start_year} and year_number &lt;= #{end_year}
+	group by year_number,month_number
 	</select>
+	
 	
 	<select id="queryPublicPatentCatagoryNum" parameterType="String" resultType="String">
 	select count(*) from patent where apply_man like #{company} and publicity_date_sk in (

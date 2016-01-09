@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.maven.artifact.resolver.filter.AndArtifactFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.zju.cst.beans.Patent;
+import edu.zju.cst.beans.SQLCompanyYearPatentNumber;
 import edu.zju.cst.mapper.PatentMapper;
 
 @Service("patentService")
@@ -23,17 +25,25 @@ public class PatentService {
 	 * @return  返回该公司该年份区间内12个月的公司申请专利数量
 	 */
 	public Map<String, String> queryApplyData(String startYear,String endYear,String company){
-		System.out.println(startYear+":::"+endYear+":::"+company);
-		Map<String, String> map=new HashMap<String, String>();
+		Map<String, String> map = new HashMap<String, String>();
+		ArrayList<SQLCompanyYearPatentNumber> result = new ArrayList<SQLCompanyYearPatentNumber>();
+		result = patentMapper.getApplyNumByCompany(company,startYear,endYear);
 		int endy = Integer.parseInt(endYear);
 		int starty = Integer.parseInt(startYear);
 		int range = endy-starty;
+		int index = 0;
 		for(int j = 0;j<=range;j++){
 			for(int i=1;i<=12;i++){
 				int key = j*12+i;
-				int num = patentMapper.getApplyNumByCompany(company,String.valueOf(starty+j),String.valueOf(i));
-				map.put(String.valueOf(key), String.valueOf(num));
-				System.out.println("Service::"+num);
+				if (index < result.size() && result.get(index).getYear_number().equals(String.valueOf(starty+j)) 
+						&&result.get(index).getMonth_number().equals(String.valueOf(i))) {
+					map.put(String.valueOf(key), result.get(index).getCount());
+					//System.out.println(key+":"+map.get(String.valueOf(key)));
+					index++;
+				}else{
+					map.put(String.valueOf(key),String.valueOf(0));
+					//System.out.println(key+":"+map.get(key));
+				}
 			}
 		}
 		return map;
@@ -47,15 +57,25 @@ public class PatentService {
 	 * @return  返回该公司该年份区间内12个月的公司公开专利数量
 	 */
 	public Map<String, String> queryPublicityData(String startYear,String endYear,String company){
-		Map<String, String> map=new HashMap<String, String>();
+		Map<String, String> map = new HashMap<String, String>();
+		ArrayList<SQLCompanyYearPatentNumber> result = new ArrayList<SQLCompanyYearPatentNumber>();
+		result = patentMapper.getPublicNumByCompany(company,startYear,endYear);
 		int endy = Integer.parseInt(endYear);
 		int starty = Integer.parseInt(startYear);
 		int range = endy-starty;
+		int index = 0;
 		for(int j = 0;j<=range;j++){
 			for(int i=1;i<=12;i++){
 				int key = j*12+i;
-				int num = patentMapper.getPublicNumByCompany(company,String.valueOf(starty+j),String.valueOf(i));
-				map.put(String.valueOf(key), String.valueOf(num));
+				if (index < result.size() && result.get(index).getYear_number().equals(String.valueOf(starty+j)) 
+						&&result.get(index).getMonth_number().equals(String.valueOf(i))) {
+					map.put(String.valueOf(key), result.get(index).getCount());
+					//System.out.println(key+":"+map.get(String.valueOf(key)));
+					index++;
+				}else{
+					map.put(String.valueOf(key),String.valueOf(0));
+					//System.out.println(key+":"+map.get(key));
+				}
 			}
 		}
 		return map;

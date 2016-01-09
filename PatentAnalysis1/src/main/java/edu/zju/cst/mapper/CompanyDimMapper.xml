@@ -10,6 +10,6 @@
 	select * from company_dim where id=#{id}
 	</select>
 	<select id="getCompanyList"  resultType="String" >   
-     SELECT DISTINCT company_name FROM company_dim 
+     SELECT DISTINCT company_name FROM company_dim order by company_name
   </select>
 </mapper>

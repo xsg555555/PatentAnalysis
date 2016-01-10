@@ -1,5 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path;
+%>
 <html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -10,17 +15,17 @@
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/bootstrap.min.js" type="text/javascript"></script>
 </head>
-<style>	
-	.axis path,
-	.axis line{
-		fill: none;
-		stroke: black;
-		shape-rendering: crispEdges;
-	}
-	.axis text {
-		font-family: sans-serif;
-		font-size: 11px;
-	}
+<style>
+.axis path, .axis line {
+	fill: none;
+	stroke: black;
+	shape-rendering: crispEdges;
+}
+
+.axis text {
+	font-family: sans-serif;
+	font-size: 11px;
+}
 </style>
 <body>
 	<div class="well container" style="background: #616161">
@@ -30,40 +35,45 @@
 				<div class="row">
 					<div class="col-md-4" align="left">
 						<div class="well">
-							<font size="4px" style="font-weight: bold; font-family: KaiTi" class="col-md-12">请在下方选择要查看的公司</font> <br>
-								<select class="form-control" id="company" style="margin-left:5px;margin-top:10px">
-									<option>公司</option>
-								</select>	
+							<font size="4px" style="font-weight: bold; font-family: KaiTi"
+								class="col-md-12">请在下方选择要查看的公司</font> <br> 
+								<select class="form-control" id="company"
+								style="margin-left: 5px; margin-top: 10px">
+								<option>公司</option>
+							</select>
 							<hr>
 							<font size="3px" style="font-weight: bold; font-family: KaiTi"
-								class="col-md-12">请在下方查询选择年份</font> <br>
-							<select class="form-control" id="year1" style="margin-left:5px;margin-top:10px;width:170px" >
+								class="col-md-12">请在下方查询选择年份</font> <br> <select
+								class="form-control" id="year1"
+								style="margin-left: 5px; margin-top: 10px; width: 170px">
 								<option>选择年份</option>
 							</select>
 							<hr>
 							<font size="3px" style="font-weight: bold; font-family: KaiTi"
-								class="col-md-12">请在下方查询选择组别</font> <br>
-							<select class="form-control" id="group" style="margin-left:5px;margin-top:10px;width:170px" >
+								class="col-md-12">请在下方查询选择组别</font> <br> <select
+								class="form-control" id="group"
+								style="margin-left: 5px; margin-top: 10px; width: 170px">
 								<option>选择组别</option>
 								<option>大组</option>
 								<option>小组</option>
 							</select>
 							<hr>
-							<div align="right"><button class="btn btn-warning" type="button" onClick="javascript:drawChart()"
-								style="width: 100px;" >查询数据</button></div>
+							<div align="right">
+								<button class="btn btn-warning" type="button"
+									onClick="javascript:DrawEChart(ec)" style="width: 100px;">查询数据</button>
+							</div>
 						</div>
 					</div>
 					<div class="col-md-7">
 						<form method="post" action="FileController/getAlgorithmParameter">
-							<div class="panel">
+							<div class="panel" id="technologyPanel">
 								<div class="panel-heading" align="center"
 									style="color: black; height: 50px; background-color: #E6E8FA">
 								</div>
 								<div class="panel-body" align="center">
 									<div id="display" align="center"></div>
 								</div>
-								<div class="panel-footer">
-								</div>
+								<div class="panel-footer"></div>
 							</div>
 						</form>
 					</div>
@@ -71,7 +81,146 @@
 			</div>
 		</div>
 	</div>
-
+	<script type="text/javascript" src="<%=basePath%>/js/echarts.js"></script>
+	<script type="text/javascript" src="<%=basePath%>/js/tab.js"></script>
+	<script type="text/javascript">
+		for (var i = 2006; i < 2016; i++) {
+			$("select#year1").append("<option>" + i + "</option>");
+			$("select#year2").append("<option>" + i + "</option>");
+		};
+		//模拟数据
+		getInitData();
+		function getInitData() {
+			$.ajax({
+				type : "post",
+				url : "company/getCompanyList",
+				dataType : "json",
+				success : function(data) {
+					var obj = eval(data);
+					$.each(obj.companyList, function(index,content) {
+						$("select#company").append(
+								"<option>" + content + "</option>");
+					});
+				},
+				error : function(msg) {
+					alert("post fail!!!");
+				}
+			});
+		}
+	
+		    require.config({
+				paths : {
+					echarts : '<%=basePath%>/js/dist'
+				}
+			});
+			require([ 'echarts',  'echarts/chart/bar' ],
+			//渲染ECharts图表  
+			function DrawEChart(ec) {
+				
+				var technologyCompareChart = ec.init(document
+						.getElementById("technologyPanel"));
+				priceDistributeChart.showLoading({
+					text : "图表数据正在努力加载..."
+				});
+				//加载图表  
+				var technologyCompareOption = {
+						tooltip : {
+					        trigger: 'axis',
+					        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+					            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+					        }
+					    },
+					    legend: {
+					        data:['发明专利', '实用新型']
+					    },
+					    toolbox: {
+					        show : true,
+					        feature : {
+					            mark : {show: true},
+					            dataView : {show: true, readOnly: false},
+					            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+					            restore : {show: true},
+					            saveAsImage : {show: true}
+					        }
+					    },
+					    calculable : true,
+					    xAxis : [
+					        {
+					            type : 'value'
+					        }
+					    ],
+					    yAxis : [
+					        {
+					            type : 'category',
+					            data : ['F16D55/224','F16D65/18','B23Q1/28','F16D121/04']
+					        }
+					    ],
+					    series : [
+					        {
+					            name:'发明专利',
+					            type:'bar',
+					            stack: '总量',
+					            itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
+					            data:[320, 302, 301, 334]
+					        },
+					        {
+					            name:'实用新型',
+					            type:'bar',
+					            stack: '总量',
+					            itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
+					            data:[120, 132, 101, 134]
+					        }
+					    ]
+				};
+				$.ajax({
+					type : "post",
+					url : "group/queryTechnologyCompare",
+					async:false,
+					data : {
+						company : $("#company option:selected").text(),
+						year : $("#year1 option:selected").text(),
+						type:$("#group option:selected").text(),
+					},
+					dataType : "json",
+					success : function(data) {
+						var obj = eval(data);
+						dataset=[];
+						var company = $("#company option:selected").text();
+						var year1 = parseInt($("#year1 option:selected").text());
+						title = company+"专利技术分布图";
+						subTitle = year1+"年 ";
+						$(".title").text(title);
+						$(".subTitle").text(subTitle);
+						if(obj.isNull!="true"){
+							var groupdataset = [];
+							var inventdataset = [];
+							var practicdataset = [];
+							for ( var item in obj) {
+								alert(item)
+								groupdataset.push(item);
+								inventdataset.push(parseInt(obj.item.inventPatent));
+								practicdataset.push(parseInt(obj.item.practicPatent));
+							}
+							technologyCompareOption.yAxis[0].data=groupdataset;
+							technologyCompareOption.series[0].data=inventdataset;
+							technologyCompareOption.series[1].data=practicdataset;
+							
+							technologyCompareChart.hideLoading();
+							technologyCompareChart.setOption(technologyCompareOption);
+						}
+						else{
+							alert("您所查询的公司该年份无数据 ！");
+							technologyCompareChart.hideLoading();
+						}
+						
+					},
+					error : function(msg) {
+						alert("post fail!!!");
+					}
+				});
+			});
+	</script>
+	<!--  
 		<script>
 			init();
 			var w = 600;
@@ -189,6 +338,6 @@
 					}
 				});
 			}
-		</script>
+		</script>-->
 </body>
 </html>

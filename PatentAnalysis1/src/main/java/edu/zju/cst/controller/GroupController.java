@@ -37,7 +37,7 @@ public class GroupController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(type.equals("大组统计")){
+		if(type.equals("大组")){
 			technologyData=groupService.queryTechnologyByBigGroup(company,year);
 		}else{
 			technologyData=groupService.queryTechnologyBySmallGroup(company,year);

@@ -35,13 +35,13 @@ public class PeopleController {
 		String startYear = request.getParameter("startYear");
 		String endYear = request.getParameter("endYear");
 		String company = request.getParameter("company");
-		try {
-			byte[] bytes = company.getBytes("ISO-8859-1");
-			company = new String(bytes,"utf-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+//		try {
+//			byte[] bytes = company.getBytes("ISO-8859-1");
+//			company = new String(bytes,"utf-8");
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}		
 //		System.out.println(year+":"+company);
 		List<String> peopleQuantityData=new ArrayList<String>();		
 		peopleQuantityData=peopleService.queryPeopleQuantity(startYear,endYear,company);
@@ -49,6 +49,5 @@ public class PeopleController {
 			
 		map.put("peopleQuantityData", peopleQuantityData);
 		return JSONObject.wrap(map).toString();
-		
 	}
 }

@@ -29,14 +29,14 @@ public class GroupController {
 		String year = request.getParameter("year");
 		String type = request.getParameter("type");
 		Map<String, Map<String,String>> technologyData=new HashMap<String, Map<String,String>>();
-		try {
-			byte[] bytes = company.getBytes("ISO-8859-1");
-			company = new String(bytes,"utf-8");
-			year = new String(bytes,"utf-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			byte[] bytes = company.getBytes("ISO-8859-1");
+//			company = new String(bytes,"utf-8");
+//			year = new String(bytes,"utf-8");
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		if(type.equals("大组")){
 			technologyData=groupService.queryTechnologyByBigGroup(company,year);
 		}else{

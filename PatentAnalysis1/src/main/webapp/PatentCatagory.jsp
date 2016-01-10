@@ -4,7 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>专利类型</title>
+<!-- CSS Files -->
+<link rel="stylesheet" type="text/css" href="css/reset.css">
+<link rel="stylesheet" type="text/css" href="css/animate.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
 <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+
+<!-- Javascript Files -->
+<script type="text/javascript" src="js/slider.js"></script>
+<script type="text/javascript" src="js/wow.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 <script src="js/jquery-1.11.1.js"></script>
 <script src="js/d3.min.js"></script>
 <script src="js/jquery-2.1.4.min.js"></script>
@@ -41,6 +50,27 @@ body {
 }
 </style>
 <body>
+<!-- header Section -->
+	<header>
+		<div class="container navbar navbar-inverse">
+			<div class="row">
+				<!-- Logo  -->
+				<div class="section_title animated wow fadeInUp col-md-3" style="margin-bottom:10px">
+					<a href="index.jsp"><font color="white" size="6px">PatentAnalysis</font></a>
+				</div>
+				<!-- Navigation Menu  -->
+				<nav style="margin-bottom:10px;margin-top:30px" class="col-md-8" >
+					<ul>
+						<li><a href="PatentApply.jsp"><font color="white">PatentApply</font></a></li>
+						<li><a href="PatentPublicity.jsp"><font color="white">PatentPublicity</font></a></li>
+						<li><a href="PatentCatagory.jsp"><font color="white">PatentCatagory</font></a></li>
+						<li><a href="TechnologyCompare.jsp"><font color="white">TechCompare</font></a></li>
+						<li><a href="PeopleQuantity.jsp"><font color="white">PeoQuantity</font></a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</header><!-- end header -->
 	<div class="well container" style="background: #616161">
 		<hr>
 		<div>
@@ -79,7 +109,65 @@ body {
 			</div>
 		</div>
 	</div>
-	
+	<!-- Footer Section -->
+	<footer class="clearfix">
+		<div class="container">
+			<!-- Copyrights  -->
+			<div class="copyright animated wow fadeInUp">
+				<div class="section_title animated wow fadeInUp">
+					<h3>Authors.</h3>
+				</div>
+				<p>Team of zhejiang university</p>
+				<p>More info please call our phone 18868814473</p>
+			</div>
+
+			<div class="footer_links">
+
+				<div class="sm columns animated wow fadeInRight media"
+					data-wow-delay=".3s">
+					<div class="pull-left">
+						<img class="media-object img-circle" src="img/man1.png" alt="..."
+							height="100" width="100">
+					</div>
+					<div class="media-body">
+						<h3 class="media-heading">shangguangxie</h3>
+						<div>Responsible for the overall design and front-end
+							production</div>
+					</div>
+				</div>
+
+				<!-- About Links  -->
+				<div class="sm columns animated wow fadeInRight media"
+					data-wow-delay=".4s">
+					<div class="pull-left">
+						<img class="media-object img-circle" src="img/man2.png" alt="..."
+							height="100" width="100">
+					</div>
+					<div class="media-body">
+						<h3 class="media-heading">binyuanlin</h3>
+						<div>Responsible for the preparation of data preparation and
+							control layer</div>
+					</div>
+				</div>
+
+				<!-- Address  -->
+				<div class="sm columns animated wow fadeInRight media"
+					data-wow-delay=".5s">
+					<div class="pull-left">
+						<img class="media-object img-circle" src="img/man3.png" alt="..."
+							height="100" width="100">
+					</div>
+					<div class="media-body">
+						<h3 class="media-heading">qiaojieyang</h3>
+						<div>Responsible for database data operation and background
+							process</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</footer>
+	<!-- end footer -->
 	
 	
 	<script type="text/javascript">
@@ -162,7 +250,6 @@ body {
 	function drawChart(){
 		getData();
 		piedata = pie(dataset);
-		alert(dataset);
 		arcs = svg.selectAll("g")
 		  .data(piedata)
 		  .attr("transform","translate("+ (w*1/2) +","+ (w*10/24) +")")

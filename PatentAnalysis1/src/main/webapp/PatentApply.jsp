@@ -3,7 +3,7 @@
 <html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>研发人员数量趋势</title>
+<title>专利申请趋势</title>
 <!-- CSS Files -->
 <link rel="stylesheet" type="text/css" href="css/reset.css">
 <link rel="stylesheet" type="text/css" href="css/animate.css">
@@ -56,7 +56,7 @@ body {
 </style>
 <body>
 
-<!-- header Section -->
+	<!-- header Section -->
 	<header>
 		<div class="container navbar navbar-inverse">
 			<div class="row">
@@ -85,44 +85,48 @@ body {
 				<div class="row">
 					<div class="col-md-4" align="left">
 						<div class="well">
-							<font size="4px" style="font-weight: bold; font-family: KaiTi" class="col-md-12">请在下方选择要查看的公司</font> <br>
-								<select class="form-control" id="company" style="margin-left:5px;margin-top:10px">
-									<option>公司</option>
-								</select>	
+							<font size="4px" style="font-weight: bold; font-family: KaiTi"
+								class="col-md-12">请在下方选择要查看的公司</font> <br> <select
+								class="form-control" id="company"
+								style="margin-left: 5px; margin-top: 10px">
+								<option>公司</option>
+							</select>
 							<hr>
 							<font size="3px" style="font-weight: bold; font-family: KaiTi"
-								class="col-md-12">请在下方选择起始年份</font> <br>
-							<select class="form-control" id="year1" style="margin-left:5px;margin-top:10px;width:170px" >
+								class="col-md-12">请在下方选择起始年份</font> <br> <select
+								class="form-control" id="year1"
+								style="margin-left: 5px; margin-top: 10px; width: 170px">
 								<option>起始年份</option>
 							</select>
 							<hr>
 							<font size="3px" style="font-weight: bold; font-family: KaiTi"
-								class="col-md-12">请在下方选择终止年份</font> <br>
-							<select class="form-control" id="year2" style="margin-left:5px;margin-top:10px;width:170px">
+								class="col-md-12">请在下方选择终止年份</font> <br> <select
+								class="form-control" id="year2"
+								style="margin-left: 5px; margin-top: 10px; width: 170px">
 								<option>终止年份</option>
 							</select>
-							<div align="right"><button class="btn btn-warning" type="button" onClick="javascript:drawChart()"
-								style="width: 100px;" >查询数据</button></div>
+							<div align="right">
+								<button class="btn btn-warning" type="button"
+									onClick="javascript:drawChart()" style="width: 100px;">查询数据</button>
+							</div>
 						</div>
 					</div>
 					<div class="col-md-7">
-							<div class="panel">
-								<div class="panel-heading" align="center"
-									style="color: black; height: 50px; background-color: #E6E8FA">
-								</div>
-								<div class="panel-body" align="center">
-									<div id="display" align="center"></div>
-								</div>
-								<div class="panel-footer">
-								</div>
+						<div class="panel">
+							<div class="panel-heading" align="center"
+								style="color: black; height: 50px; background-color: #E6E8FA">
 							</div>
+							<div class="panel-body" align="center">
+								<div id="display" align="center"></div>
+							</div>
+							<div class="panel-footer"></div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-		<!-- Footer Section -->
+	<!-- Footer Section -->
 	<footer class="clearfix">
 		<div class="container">
 			<!-- Copyrights  -->
@@ -181,7 +185,8 @@ body {
 		</div>
 	</footer>
 	<!-- end footer -->
-	
+
+
 	<script type="text/javascript">
 		var dataset = [];
 		var xMarks = [];
@@ -189,7 +194,7 @@ body {
 		var h = 400;
 		var padding = 40;
 		var head_height = padding;
-		var title = "研发人员数量趋势图";
+		var title = "专利申请趋势图";
 		var foot_height = padding;
 		for (var i = 2006; i < 2016; i++) {
 			$("select#year1").append("<option>" + i + "</option>");
@@ -199,7 +204,7 @@ body {
 		getInitData();
 		//定义画布
 		var svg = d3.select("div#display").append("svg").attr("width", w).attr(
-				"height", h).attr("margin-left",10).attr("class","svg");
+				"height", h);
 		//添加背景
 		svg.append("g").append("rect").attr("x", 0).attr("y", 0).attr("width",
 				w).attr("height", h).style("fill", "#FFF").style(
@@ -268,20 +273,21 @@ body {
 					[ padding, w - padding ]);
 			//定义纵轴
 			yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(10);
-			
+
 			yBar1.transition().duration(1000).call(yAxis);
-			
+
 			//定义横轴
-			xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(dataset.length);
-			
+			xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(
+					dataset.length);
+
 			d3.select(".axis").remove();
-			
+
 			var xBar = svg.append("g").attr("class", "axis").attr("transform",
-					"translate(0," + (h - padding) + ")").call(xAxis).selectAll(
-					"text").text(function(d) {
-				return xMarks[d];
-			});
-			
+					"translate(0," + (h - padding) + ")").call(xAxis)
+					.selectAll("text").text(function(d) {
+						return xMarks[d];
+					});
+
 			//重绘路径
 			path.transition().duration(1000).attr("d", line(dataset));
 			//update、enter、exit
@@ -292,16 +298,16 @@ body {
 					}).attr("cy", function(d) {
 						return yScale(d);
 					})
-			svg.selectAll("circle").data(dataset).enter().append("circle").attr(
-				"cx", function(d, i) {
-					return xScale(i);
-				}).attr("cy", function(d) {
-					return yScale(d);
-				}).attr("r", 5).attr("fill", function(d) {
-					return "red";
-				});
+			svg.selectAll("circle").data(dataset).enter().append("circle")
+					.attr("cx", function(d, i) {
+						return xScale(i);
+					}).attr("cy", function(d) {
+						return yScale(d);
+					}).attr("r", 5).attr("fill", function(d) {
+						return "red";
+					});
 		}
-		
+
 		//产生随机数据
 		function getInitData() {
 			$.ajax({
@@ -310,7 +316,7 @@ body {
 				dataType : "json",
 				success : function(data) {
 					var obj = eval(data);
-					$.each(obj.companyList, function(index,content) {
+					$.each(obj.companyList, function(index, content) {
 						$("select#company").append(
 								"<option>" + content + "</option>");
 					});
@@ -328,7 +334,7 @@ body {
 				xMarks.push("标签" + i);
 			}
 		}
-		
+
 		//获取json长度
 		function getJsonLength(jsonData) {
 			var jsonLength = 0;
@@ -337,13 +343,13 @@ body {
 			}
 			return jsonLength;
 		}
-		
+
 		//产生随机数据
 		function getData() {
 			$.ajax({
 				type : "post",
-				url : "people/queryPeopleQuantity",
-				async:false,
+				url : "patent/queryApplyData",
+				async : false,
 				data : {
 					company : $("#company option:selected").text(),
 					startYear : $("#year1 option:selected").text(),
@@ -357,20 +363,20 @@ body {
 					var company = $("#company option:selected").text();
 					var year1 = parseInt($("#year1 option:selected").text());
 					var year2 = parseInt($("#year2 option:selected").text());
-					var month=0;
-					var quantity=0;
-					title = company+"研发人员数量趋势图";
-					subTitle = year1+"年 至"+year2+"年";
+					var month = 0;
+					var quantity = 0;
+					title = company + "专利申请趋势图";
+					subTitle = year1 + "年 至" + year2 + "年";
 					$(".title").text(title);
 					$(".subTitle").text(subTitle);
-					$.each(obj.peopleQuantityData,function(index,content) {
+					$.each(obj.applyData, function(index, content) {
 						month++;
-						quantity+=parseInt(content);
-						if(month%12==0){
+						quantity += parseInt(content);
+						if (month % 12 == 0) {
 							dataset.push(quantity);
 							xMarks.push(year1);
 							year1++;
-							quantity=0;
+							quantity = 0;
 						}
 					});
 				},

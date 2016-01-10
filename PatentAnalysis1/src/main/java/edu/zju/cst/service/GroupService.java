@@ -36,11 +36,17 @@ public class GroupService {
 		}else {
 			flag.put("IsNull", "false");
 			technologyData.put("IsNull",flag );
+			Map<String, String> InventPatent = new HashMap<String, String>();
+			Map<String, String> PracticalPatent = new HashMap<String, String>();
 			for (SQLPatentNumByGroupAndType result : list) {
-				Map<String, String> data = new HashMap<String, String>();
-				data.put(result.getType(), result.getCount());
-				technologyData.put(result.getGroup(), data);
+				if (result.getType().equals("发明专利")) {
+					InventPatent.put(result.getGroup(), result.getCount());
+				}else{
+					PracticalPatent.put(result.getGroup(), result.getCount());
+				}
 			}
+			technologyData.put("inventPatent", InventPatent);
+			technologyData.put("practicPatent", PracticalPatent);
 		}
 		return technologyData;
 	}
@@ -62,11 +68,17 @@ public class GroupService {
 		}else {
 			flag.put("IsNull", "false");
 			technologyData.put("IsNull",flag );
+			Map<String, String> InventPatent = new HashMap<String, String>();
+			Map<String, String> PracticalPatent = new HashMap<String, String>();
 			for (SQLPatentNumByGroupAndType result : list) {
-				Map<String, String> data = new HashMap<String, String>();
-				data.put(result.getType(), result.getCount());
-				technologyData.put(result.getGroup(), data);
+				if (result.getType().equals("发明专利")) {
+					InventPatent.put(result.getGroup(), result.getCount());
+				}else{
+					PracticalPatent.put(result.getGroup(), result.getCount());
+				}
 			}
+			technologyData.put("inventPatent", InventPatent);
+			technologyData.put("practicPatent", PracticalPatent);
 		}
 		return technologyData;
 	}

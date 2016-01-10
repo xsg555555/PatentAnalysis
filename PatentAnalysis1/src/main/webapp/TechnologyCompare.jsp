@@ -27,66 +27,9 @@
 	font-size: 11px;
 }
 </style>
-<body>
-	<div class="well container" style="background: #616161">
-		<hr>
-		<div>
-			<div class="container">
-				<div class="row">
-					<div class="col-md-4" align="left">
-						<div class="well">
-							<font size="4px" style="font-weight: bold; font-family: KaiTi"
-								class="col-md-12">请在下方选择要查看的公司</font> <br> 
-								<select class="form-control" id="company"
-								style="margin-left: 5px; margin-top: 10px">
-								<option>公司</option>
-							</select>
-							<hr>
-							<font size="3px" style="font-weight: bold; font-family: KaiTi"
-								class="col-md-12">请在下方查询选择年份</font> <br> <select
-								class="form-control" id="year1"
-								style="margin-left: 5px; margin-top: 10px; width: 170px">
-								<option>选择年份</option>
-							</select>
-							<hr>
-							<font size="3px" style="font-weight: bold; font-family: KaiTi"
-								class="col-md-12">请在下方查询选择组别</font> <br> <select
-								class="form-control" id="group"
-								style="margin-left: 5px; margin-top: 10px; width: 170px">
-								<option>选择组别</option>
-								<option>大组</option>
-								<option>小组</option>
-							</select>
-							<hr>
-							<div align="right">
-								<button class="btn btn-warning" type="button"
-									onClick="javascript:DrawEChart(ec)" style="width: 100px;">查询数据</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-7">
-						<form method="post" action="FileController/getAlgorithmParameter">
-							<div class="panel" id="technologyPanel">
-								<div class="panel-heading" align="center"
-									style="color: black; height: 50px; background-color: #E6E8FA">
-								</div>
-								<div class="panel-body" align="center">
-									<div id="display" align="center"></div>
-								</div>
-								<div class="panel-footer"></div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script type="text/javascript" src="<%=basePath%>/js/echarts.js"></script>
-	<script type="text/javascript" src="<%=basePath%>/js/tab.js"></script>
-	<script type="text/javascript">
+<script type="text/javascript">
 		for (var i = 2006; i < 2016; i++) {
 			$("select#year1").append("<option>" + i + "</option>");
-			$("select#year2").append("<option>" + i + "</option>");
 		};
 		//模拟数据
 		getInitData();
@@ -107,18 +50,15 @@
 				}
 			});
 		}
-	
-		    require.config({
+	 	require.config({
 				paths : {
 					echarts : '<%=basePath%>/js/dist'
 				}
-			});
-			require([ 'echarts',  'echarts/chart/bar' ],
+		});
+		require([ 'echarts',  'echarts/chart/bar' ],
 			//渲染ECharts图表  
-			function DrawEChart(ec) {
-				
-				var technologyCompareChart = ec.init(document
-						.getElementById("technologyPanel"));
+		function DrawEChart(ec) {
+			var technologyCompareChart = ec.init(document.getElementById("technologyPanel"));
 				priceDistributeChart.showLoading({
 					text : "图表数据正在努力加载..."
 				});
@@ -172,6 +112,7 @@
 					        }
 					    ]
 				};
+				technologyCompareChart.setOption(technologyCompareOption);
 				$.ajax({
 					type : "post",
 					url : "group/queryTechnologyCompare",
@@ -220,6 +161,63 @@
 				});
 			});
 	</script>
+<body>
+	<div class="well container" style="background: #616161">
+		<hr>
+		<div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4" align="left">
+						<div class="well">
+							<font size="4px" style="font-weight: bold; font-family: KaiTi"
+								class="col-md-12">请在下方选择要查看的公司</font> <br> 
+								<select class="form-control" id="company"
+								style="margin-left: 5px; margin-top: 10px">
+								<option>公司</option>
+							</select>
+							<hr>
+							<font size="3px" style="font-weight: bold; font-family: KaiTi"
+								class="col-md-12">请在下方查询选择年份</font> <br> <select
+								class="form-control" id="year1"
+								style="margin-left: 5px; margin-top: 10px; width: 170px">
+								<option>选择年份</option>
+							</select>
+							<hr>
+							<font size="3px" style="font-weight: bold; font-family: KaiTi"
+								class="col-md-12">请在下方查询选择组别</font> <br> <select
+								class="form-control" id="group"
+								style="margin-left: 5px; margin-top: 10px; width: 170px">
+								<option>选择组别</option>
+								<option>大组</option>
+								<option>小组</option>
+							</select>
+							<hr>
+							<div align="right">
+								<button class="btn btn-warning" type="button"
+									onClick="javascript:DrawEChart(ec)" style="width: 100px;">查询数据</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-7">
+						<form method="post" action="FileController/getAlgorithmParameter">
+							<div class="panel" >
+								<div class="panel-heading" align="center"
+									style="color: black; height: 50px; background-color: #E6E8FA">
+								</div>
+								<div class="panel-body" align="center">
+									<div id="display" align="center" id="technologyPanel" style="height:400px;"></div>
+								</div>
+								<div class="panel-footer"></div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="<%=basePath%>/js/echarts.js"></script>
+	<script type="text/javascript" src="<%=basePath%>/js/tab.js"></script>
+	
 	<!--  
 		<script>
 			init();

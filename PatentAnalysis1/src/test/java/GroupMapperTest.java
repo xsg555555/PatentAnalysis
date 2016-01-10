@@ -19,7 +19,6 @@ public class GroupMapperTest {
 	
 	@Test
 	public void testqueryTechnologyByBigGroup(){
-		
 		GroupDimMapper groupDimMapper = (GroupDimMapper)ac.getBean("GroupDimMapper");
 		Map<String, Map<String,String>> technologyData=new HashMap<String, Map<String,String>>();
 		ArrayList<SQLPatentNumByGroupAndType> list = new ArrayList<SQLPatentNumByGroupAndType>();
@@ -31,15 +30,30 @@ public class GroupMapperTest {
 		}else {
 			flag.put("IsNull", "false");
 			technologyData.put("IsNull",flag );
+			Map<String, String> InventPatent = new HashMap<String, String>();
+			Map<String, String> PracticalPatent = new HashMap<String, String>();
 			for (SQLPatentNumByGroupAndType result : list) {
-				Map<String, String> data = new HashMap<String, String>();
-				data.put(result.getType(), result.getCount());
-				technologyData.put(result.getGroup(), data);
+				if (result.getType().equals("发明专利")) {
+					InventPatent.put(result.getGroup(), result.getCount());
+				}else{
+					PracticalPatent.put(result.getGroup(), result.getCount());
+				}
 			}
+			technologyData.put("inventPatent", InventPatent);
+			technologyData.put("practicPatent", PracticalPatent);
 		}
+		int n = 0;
 		if (technologyData.get("IsNull").get("IsNull").equals("false")) {
 			System.out.println("------------");
-			System.out.println(technologyData.get("F16M11").get("实用新型"));
+			for (String string : technologyData.keySet()) {
+				Map<String, String> data = new HashMap<String, String>();
+				data = technologyData.get(string);
+				for(String string2:data.keySet()){
+					System.out.println(string+"  "+string2+"  "+data.get(string2));
+					n++;
+				}
+			}
+			System.out.println(n);
 		}else{
 			System.out.println("NO data");
 		}
@@ -59,18 +73,32 @@ public class GroupMapperTest {
 		}else {
 			flag.put("IsNull", "false");
 			technologyData.put("IsNull",flag );
+			Map<String, String> InventPatent = new HashMap<String, String>();
+			Map<String, String> PracticalPatent = new HashMap<String, String>();
 			for (SQLPatentNumByGroupAndType result : list) {
-				Map<String, String> data = new HashMap<String, String>();
-				data.put(result.getType(), result.getCount());
-				technologyData.put(result.getGroup(), data);
+				if (result.getType().equals("发明专利")) {
+					InventPatent.put(result.getGroup(), result.getCount());
+				}else{
+					PracticalPatent.put(result.getGroup(), result.getCount());
+				}
 			}
+			technologyData.put("inventPatent", InventPatent);
+			technologyData.put("practicPatent", PracticalPatent);
 		}
+		int n = 0;
 		if (technologyData.get("IsNull").get("IsNull").equals("false")) {
 			System.out.println("------------");
-			System.out.println(technologyData.get("F16M11/04").get("实用新型"));
+			for (String string : technologyData.keySet()) {
+				Map<String, String> data = new HashMap<String, String>();
+				data = technologyData.get(string);
+				for(String string2:data.keySet()){
+					System.out.println(string+"  "+string2+"  "+data.get(string2));
+					n++;
+				}
+			}
+			System.out.println(n);
 		}else{
 			System.out.println("NO data");
 		}
-	
 	}
 }

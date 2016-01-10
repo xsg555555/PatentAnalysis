@@ -64,7 +64,6 @@ body {
 						</div>
 					</div>
 					<div class="col-md-7">
-						<form method="post" action="FileController/getAlgorithmParameter">
 							<div class="panel">
 								<div class="panel-heading" align="center"
 									style="color: black; height: 50px; background-color: #E6E8FA">
@@ -75,7 +74,6 @@ body {
 								<div class="panel-footer">
 								</div>
 							</div>
-						</form>
 					</div>
 				</div>
 			</div>

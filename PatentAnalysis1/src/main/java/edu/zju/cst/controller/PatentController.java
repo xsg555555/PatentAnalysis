@@ -40,7 +40,7 @@ public class PatentController {
 //		} catch (UnsupportedEncodingException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
-//		}	
+//		}
 		System.out.println(startYear+":::"+endYear+":::"+company);
 		Map<String, String> applyData=new HashMap<String, String>();		
 		applyData=patentService.queryApplyData(startYear,endYear,company);

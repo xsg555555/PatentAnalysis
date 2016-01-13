@@ -6,8 +6,7 @@
 <title>专利分析展示</title>
 <meta charset="utf-8">
 <meta name="author" content="pixelhint.com">
-<meta name="description"
-	content="Heros - Learn How To Convert a PSD Template TO HTML5/CSS3" />
+<meta name="description"/>
 
 <!-- CSS Files -->
 <link rel="stylesheet" type="text/css" href="css/reset.css">
@@ -60,18 +59,18 @@
 				<ul>
 					<li class="animated wow fadeInRight" data-wow-delay=".3s">
 						<h3>We Design.</h3>
-						<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-						<a href="#">read more<span class="arrow">&rarr;</span></a>
+						<p>Our data visualization program is to design a web site that uses graphs to present patent data.</p>
+						<a href="WeDesign.jsp">read more<span class="arrow">&rarr;</span></a>
 					</li>
 					<li class="animated wow fadeInRight" data-wow-delay=".4s">
-						<h3>We Innovate.</h3>
-						<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-						<a href="#">read more<span class="arrow">&rarr;</span></a>
+						<h3>We Implement.</h3>
+						<p>In order to better present the implementation of ideas, we produced the use case diagram, database E-R diagram, sequence diagram</p>
+						<a href="WeImplement.jsp">read more<span class="arrow">&rarr;</span></a>
 					</li>
 					<li class="animated wow fadeInRight" data-wow-delay=".5s">
 						<h3>We Create.</h3>
-						<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-						<a href="#">read more<span class="arrow">&rarr;</span></a>
+						<p>There are five webpage for our data visualization program to meet requirements documentation .</p>
+						<a href="WeCreate.jsp">read more<span class="arrow">&rarr;</span></a>
 					</li>
 				</ul>
 			</div>
@@ -88,10 +87,10 @@
 				<div class="projects_list clearfix">
 					<ul>
 						<li class="animated wow fadeInRight col-md-4" data-wow-delay=".4s">
-							<img class="media-object" src="img/p_logo1.png" alt="..." width="400px" height="230px"> 
+							<img class="media-object" src="img/p_logo1.png" alt="..." width="100%" height="100%"> 
 						</li>
 						<li class="animated wow fadeInRight col-md-4" data-wow-delay=".5s">
-							<img class="media-object" src="img/p_logo2.png" alt="..." width="400px" height="230px"> 
+							<img class="media-object" src="img/p_logo2.png" alt="..." width="100%" height="100%"> 
 						</li>
 					</ul>
 				</div>
@@ -128,7 +127,7 @@
             			<img class="media-object img-circle" src="img/man2.png" alt="..." height="100" width="100">
        				 </div>
         			<div class="media-body">
-            		<h3 class="media-heading">binyuanlin</h3>
+            		<h3 class="media-heading">biyuanlin</h3>
             		<div>Responsible for the preparation of data preparation and control layer</div>
         			</div>
 				</div>

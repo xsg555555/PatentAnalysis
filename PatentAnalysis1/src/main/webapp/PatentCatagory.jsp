@@ -144,7 +144,7 @@ body {
 							height="100" width="100">
 					</div>
 					<div class="media-body">
-						<h3 class="media-heading">binyuanlin</h3>
+						<h3 class="media-heading">biyuanlin</h3>
 						<div>Responsible for the preparation of data preparation and
 							control layer</div>
 					</div>
@@ -275,6 +275,14 @@ body {
 			return;
 		});
 	}
+	//获取json长度
+	function getJsonLength(jsonData) {
+		var jsonLength = 0;
+		for ( var item in jsonData) {
+			jsonLength++;
+		}
+		return jsonLength;
+	}
 	function getData(){
 		$.ajax({
 			type : "post",
@@ -287,16 +295,21 @@ body {
 			dataType : "json",
 			success : function(data) {
 				var obj = eval(data);
-				dataset=[];
-				var company = $("#company option:selected").text();
-				var year1 = parseInt($("#year1 option:selected").text());
-				title = company+"专利类型图";
-				subTitle = year1+"年 ";
-				$(".title").text(title);
-				$(".subTitle").text(subTitle);
-				dataset.push(parseInt(obj.inventPatent));
-				dataset.push(parseInt(obj.outlookPatent));
-				dataset.push(parseInt(obj.practicPatent));
+				if(getJsonLength(obj)==1&&parseInt(obj.inventPatent)==0){
+					alert("该年该公司没有专利");
+				}
+				else{
+					dataset=[];
+					var company = $("#company option:selected").text();
+					var year1 = parseInt($("#year1 option:selected").text());
+					title = company+"专利类型图";
+					subTitle = year1+"年 ";
+					$(".title").text(title);
+					$(".subTitle").text(subTitle);
+					dataset.push(parseInt(obj.inventPatent));
+					dataset.push(parseInt(obj.outlookPatent));
+					dataset.push(parseInt(obj.practicPatent));
+				}
 			},
 			error : function(msg) {
 				alert("post fail!!!");

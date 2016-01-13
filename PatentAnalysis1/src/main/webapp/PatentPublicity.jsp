@@ -156,7 +156,7 @@ body {
 							height="100" width="100">
 					</div>
 					<div class="media-body">
-						<h3 class="media-heading">binyuanlin</h3>
+						<h3 class="media-heading">biyuanlin</h3>
 						<div>Responsible for the preparation of data preparation and
 							control layer</div>
 					</div>
